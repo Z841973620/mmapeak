@@ -78,7 +78,7 @@ Tensor core operations that are not supported on your hardware will display "not
 - Ampere: 80,86,87
 - Ada Lovelace: 89
 - Hopper: 90,90a
-- Blackwell : 110,120,120a
+- Blackwell : 100,110,120a
 
 ## License
 

@@ -31,7 +31,10 @@ else()
     list(APPEND CUDA_ARCH "90")
   endif()
   if(CMAKE_CUDA_COMPILER_VERSION VERSION_GREATER_EQUAL 12.8)
-    list(APPEND CUDA_ARCH "120")
+    list(APPEND CUDA_ARCH "100" "120a")
+  endif()
+  if(CMAKE_CUDA_COMPILER_VERSION VERSION_GREATER_EQUAL 13.0)
+    list(REMOVE_ITEM CUDA_ARCH "70")
   endif()
 endif()
 message(STATUS "CUDA_ARCHITECTURES: ${CUDA_ARCH}")
@@ -41,7 +44,7 @@ set_target_properties(mmapeak PROPERTIES CUDA_ARCHITECTURES "${CUDA_ARCH}")
 set_target_properties(mmapeak PROPERTIES
     CUDA_SEPARABLE_COMPILATION OFF)
 
-target_compile_options(mmapeak PRIVATE $<$<COMPILE_LANGUAGE:CUDA>:-O3>)
+target_compile_options(mmapeak PRIVATE $<$<COMPILE_LANGUAGE:CUDA>:-O3 -Wno-deprecated-gpu-targets>)
 
 # Install the executable
 install(TARGETS mmapeak
