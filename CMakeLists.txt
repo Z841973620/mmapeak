@@ -10,22 +10,38 @@ find_package(CUDA REQUIRED)
 
 # Add CUDA executable
 add_executable(mmapeak mmapeak.cu)
-
-if(CMAKE_CUDA_COMPILER_VERSION VERSION_GREATER_EQUAL 12.8)
-    message(STATUS "CUDA version is 12.8 or greater, adding up to sm_120a")
-    set_target_properties(mmapeak PROPERTIES
-        CUDA_ARCHITECTURES "75;80;86;89;90;120a")
+if (EXISTS "/etc/nv_tegra_release")
+  set(CUDA_ARCH "72")
+  if(CMAKE_CUDA_COMPILER_VERSION VERSION_GREATER_EQUAL 11.4)
+    list(APPEND CUDA_ARCH "87")
+  endif()
+  if(CMAKE_CUDA_COMPILER_VERSION VERSION_GREATER_EQUAL 13.0)
+    list(APPEND CUDA_ARCH "110")
+	list(REMOVE_ITEM CUDA_ARCH "72")
+  endif()
 else()
-    message(STATUS "CUDA version is less than 12.8, adding up to sm_86")
-    set_target_properties(mmapeak PROPERTIES
-        CUDA_ARCHITECTURES "75;80;86")
+  set(CUDA_ARCH "70" "75")
+  if(CMAKE_CUDA_COMPILER_VERSION VERSION_GREATER_EQUAL 11.1)
+    list(APPEND CUDA_ARCH "80" "86")
+  endif()
+  if(CMAKE_CUDA_COMPILER_VERSION VERSION_GREATER_EQUAL 11.8)
+    list(APPEND CUDA_ARCH "89")
+  endif()
+  if(CMAKE_CUDA_COMPILER_VERSION VERSION_GREATER_EQUAL 12.0)
+    list(APPEND CUDA_ARCH "90")
+  endif()
+  if(CMAKE_CUDA_COMPILER_VERSION VERSION_GREATER_EQUAL 12.8)
+    list(APPEND CUDA_ARCH "120")
+  endif()
 endif()
+message(STATUS "CUDA_ARCHITECTURES: ${CUDA_ARCH}")
+set_target_properties(mmapeak PROPERTIES CUDA_ARCHITECTURES "${CUDA_ARCH}")
 
 # Set compiler flags
 set_target_properties(mmapeak PROPERTIES
     CUDA_SEPARABLE_COMPILATION OFF)
 
-target_compile_options(mmapeak PRIVATE $<$<COMPILE_LANGUAGE:CUDA>:-O2>)
+target_compile_options(mmapeak PRIVATE $<$<COMPILE_LANGUAGE:CUDA>:-O3>)
 
 # Install the executable
 install(TARGETS mmapeak

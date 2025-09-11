@@ -21,14 +21,12 @@ This tool measures the throughput of NVIDIA's Tensor Core dense operations using
 ### Using CMake
 
 ```bash
-mkdir build && cd build
-cmake ..
-make
+cmake -B build && cmake --build build -j
 ```
 
 #### Note
 
-Please use CUDA Toolkit version 12.8.1 (or later) instead of 12.8.0 to ensure compatibility with the Blackwell architecture.
+Please use CUDA Toolkit version 12.8.1 (or later) instead of 12.8.0 to ensure compatibility with FP8/FP4 .
 
 `wgmma` is not currently utilized, results in suboptimal FP8 performance on Hopper devices.
 
@@ -47,51 +45,26 @@ Please use CUDA Toolkit version 12.8.1 (or later) instead of 12.8.0 to ensure co
 
 ```
 ----------------------------------------
-Device 0: NVIDIA H100 NVL
-  Compute capability: 9.0
-  Total global memory: 93.1 GiB
-  Multiprocessor count: 132
+Device 0: NVIDIA Thor
+  Compute capability: 11.0
+  Multiprocessors: 20
+  CUDA Cores: 2560
+  GPU Max Clock rate: 1049 MHz
+  Total global memory: 122.8 GiB
+
 Running benchmarks with target time: 3.0 seconds
-mma_s4s4s32_8_8_32
-run: 2998.6 ms 28.1 T(fl)ops
-mma_mxf4mxf4f32_16_8_64
-not supported
-mma_nvf4nvf4f32_16_8_64
-not supported
-mma_f4f4f16_16_8_32
-not supported
-mma_f4f4f32_16_8_32
-not supported
-mma_f6f6f16_16_8_32
-not supported
-mma_f6f6f32_16_8_32
-not supported
-mma_mxf6mxf6f32_16_8_32
-not supported
-mma_mxf8mxf8f32_16_8_32
-not supported
-mma_f8f8f16_16_8_32
-run: 3000.3 ms 1431.8 T(fl)ops
-mma_f8f8f32_16_8_32
-run: 2999.1 ms 1208.5 T(fl)ops
-mma_s8s8s32_16_16_16
-run: 2998.4 ms 1410.1 T(fl)ops
-mma_s8s8s32_32_8_16
-run: 2998.0 ms 1409.6 T(fl)ops
-mma_f16f16f16_16_16_16
-run: 2999.3 ms 992.3 T(fl)ops
-mma_f16f16f16_32_8_16
-run: 2999.5 ms 981.2 T(fl)ops
-mma_f16f16f32_16_16_16
-run: 2998.3 ms 978.4 T(fl)ops
-mma_f16f16f32_32_8_16
-run: 3001.9 ms 976.8 T(fl)ops
-mma_bf16bf16f32_16_16_16
-run: 2997.8 ms 972.9 T(fl)ops
-mma_bf16bf16f32_32_8_16
-run: 3000.0 ms 977.0 T(fl)ops
-mma_tf32tf32f32_16_16_8
-run: 2998.6 ms 380.6 T(fl)ops
+mma_s4s4s32_8_8_32:       7.7 Tflops
+mma_f8f8f16_16_8_32:      232.1 Tflops
+mma_f8f8f32_16_8_32:      190.2 Tflops
+mma_s8s8s32_16_16_16:     123.2 Tflops
+mma_s8s8s32_32_8_16:      123.2 Tflops
+mma_bf16bf16f32_16_16_16: 123.1 Tflops
+mma_bf16bf16f32_32_8_16:  123.1 Tflops
+mma_f16f16f16_16_16_16:   123.3 Tflops
+mma_f16f16f16_32_8_16:    123.3 Tflops
+mma_f16f16f32_16_16_16:   123.3 Tflops
+mma_f16f16f32_32_8_16:    123.2 Tflops
+mma_tf32tf32f32_16_16_8:  31.0 Tflops
 ```
 
 ## Compatibility
@@ -100,12 +73,12 @@ Tensor core operations that are not supported on your hardware will display "not
 
 ## Architecture Support
 
-- Turing (2080ti, etc.): SM75
-- Ampere (A100, A30, etc.): SM80
-- Ampere (A40, 3090, etc.): SM86
-- Ada Lovelace (L40, 4090, etc.): SM89
-- Hopper (H100, H200): SM90
-- Blackwell (5090, etc.): SM120a
+- Volta: 70,72
+- Turing: 75
+- Ampere: 80,86,87
+- Ada Lovelace: 89
+- Hopper: 90,90a
+- Blackwell : 110,120,120a
 
 ## License
 
