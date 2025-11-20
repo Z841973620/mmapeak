@@ -45,6 +45,38 @@ Please use CUDA Toolkit version 12.8.1 (or later) instead of 12.8.0 to ensure co
 
 ```
 ----------------------------------------
+Device 0: NVIDIA GB10
+  Compute capability: 12.1
+  Multiprocessors: 48
+  CUDA Cores: 6144
+  GPU Max Clock rate: 2418 MHz
+  Total global memory: 119.7 GiB
+
+Running benchmarks with target time: 3.0 seconds
+mma_s4s4s32_8_8_32:       28.3 Tflops
+mma_mxf4mxf4f32_16_8_64:  448.8 Tflops
+mma_nvf4nvf4f32_16_8_64:  448.8 Tflops
+mma_f4f4f16_16_8_32:      224.6 Tflops
+mma_f4f4f32_16_8_32:      224.4 Tflops
+mma_f6f6f16_16_8_32:      224.6 Tflops
+mma_f6f6f32_16_8_32:      224.4 Tflops
+mma_mxf6mxf6f32_16_8_32:  224.5 Tflops
+mma_mxf8mxf8f32_16_8_32:  224.5 Tflops
+mma_f8f8f16_16_8_32:      224.6 Tflops
+mma_f8f8f32_16_8_32:      222.9 Tflops
+mma_s8s8s32_16_16_16:     226.1 Tflops
+mma_s8s8s32_32_8_16:      226.1 Tflops
+mma_bf16bf16f32_16_16_16: 222.1 Tflops
+mma_bf16bf16f32_32_8_16:  222.1 Tflops
+mma_f16f16f16_16_16_16:   222.2 Tflops
+mma_f16f16f16_32_8_16:    222.2 Tflops
+mma_f16f16f32_16_16_16:   222.1 Tflops
+mma_f16f16f32_32_8_16:    222.1 Tflops
+mma_tf32tf32f32_16_16_8:  55.7 Tflops
+```
+
+```
+----------------------------------------
 Device 0: NVIDIA Thor
   Compute capability: 11.0
   Multiprocessors: 20
