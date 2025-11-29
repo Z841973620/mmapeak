@@ -21,7 +21,7 @@ This tool measures the throughput of NVIDIA's Tensor Core dense operations using
 ### Using CMake
 
 ```bash
-cmake -B build && cmake --build build -j
+cmake -B build && cmake --build build --config Release -j
 ```
 
 #### Note

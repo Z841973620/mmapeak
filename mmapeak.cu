@@ -49,7 +49,6 @@ inline int _ConvertSMVer2Cores(int major, int minor) {
       {0x87, 128},
       {0x89, 128},
       {0x90, 128},
-      {0x90, 128},
       {0xa0, 128},
       {0xa1, 128},
       {0xa3, 128},
